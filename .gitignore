@@ -1,0 +1,4 @@
+# ignore all .pkl files
+*.pkl
+*.pdf
+/model/
