@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
 
 
@@ -38,7 +38,7 @@ y = df["category label"]
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
-    test_size=0.20,
+    test_size=0.2,
     random_state=42,
     stratify=y
 )
@@ -75,10 +75,10 @@ preprocessor = ColumnTransformer(
 )
 
 
-# Create model pipeline
+# Create LinearSVC pipeline
 pipeline = Pipeline([
     ("preprocessing", preprocessor),
-    ("classifier", LogisticRegression(max_iter=1000))
+    ("classifier", LinearSVC())
 ])
 
 
@@ -94,6 +94,7 @@ y_pred = pipeline.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 
 print("Accuracy:", accuracy)
+
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
